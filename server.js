@@ -14,8 +14,5 @@ mongoose.connect(db, {useMongoClient: true})
   .catch(err => console.log('connection failed', err));
 
 app.use(bodyParser.json());
-app.use('/api', function () {});
 
-app.listen(PORT, function () {
-  console.log(`listening on port ${PORT}`);
-});
+module.exports = app;
