@@ -7,14 +7,11 @@ var app = express();
 var config = require('./config');
 var db = config.DB[process.env.NODE_ENV] || process.env.DB;
 var PORT = config.PORT[process.env.NODE_ENV] || process.env.PORT;
+mongoose.Promise = Promise;
 
-mongoose.connect(db, function (err) {
-  if (!err) {
-    console.log(`connected to the Database: ${db}`);
-  } else {
-    console.log(`error connecting to the Database ${err}`);
-  }
-});
+mongoose.connect(db, {useMongoClient: true})
+  .then(() => console.log('successfully connected to', db))
+  .catch(err => console.log('connection failed', err));
 
 app.use(bodyParser.json());
 app.use('/api', function () {});
