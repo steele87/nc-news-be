@@ -1,4 +1,4 @@
-const { Users, Comments, Topics, Articles } = require('../models/');
+const { Users, Comments, Topics, Articles } = require('../models/models');
 
 const savedData = {};
 
