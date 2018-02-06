@@ -10,6 +10,13 @@ function getAllArticles(req, res, next) {
     });
 }
 
+function getArticle(req, res, next) {
+  return articles.findById(req.params.article_id).lean()
+  .then(article => {
+    return res.json({article})
+  })
+}
+
 function getCommentsForArticle(req, res, next) {
   return comments.find({ belongs_to: req.params.article_id })
     .then(comments => {
@@ -40,5 +47,6 @@ module.exports = {
   getAllArticles,
   getCommentsForArticle,
   addCommetsToArticle,
-  changeNumOfVotes
+  changeNumOfVotes,
+  getArticle
 };
