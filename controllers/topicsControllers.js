@@ -13,14 +13,14 @@ function getAllTopics(req, res, next) {
 
 function getArticlesByTopic(req, res, next) {
 
-  topics.find({title: req.params.topic_title})
+  topics.find({ title: req.params.topic_title })
 
     .then(topic => {
       let title = topic[0].title.toLowerCase();
-      return articles.find({belongs_to: title });
+      return articles.find({ belongs_to: title });
     })
     .then(articles => {
-      res.json({articles});
+      res.json({ articles });
     })
     .catch(console.error);
 }

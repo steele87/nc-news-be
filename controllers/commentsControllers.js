@@ -6,7 +6,7 @@ function changeNumOfVotes(req, res, next) {
     .then(comment => {
       if (req.query.vote === 'up') comment.votes++;
       else if (req.query.vote === 'down') comment.votes--;
-      res.json({comment});
+      res.json({ comment });
     });
 }
 
@@ -18,4 +18,4 @@ function deleteComment(req, res, next) {
     });
 }
 
-module.exports = {changeNumOfVotes, deleteComment};
+module.exports = { changeNumOfVotes, deleteComment };

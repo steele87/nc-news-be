@@ -1,5 +1,5 @@
 const express = require('express');
-const {getUser, getAllUsers}= require('../controllers/usersControllers');
+const { getUser, getAllUsers } = require('../controllers/usersControllers');
 const router = express.Router();
 const bodyParser = require('body-parser');
 
@@ -10,6 +10,6 @@ router.route('/:username')
 
 
 
-  
+
 module.exports = router;
 

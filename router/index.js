@@ -1,4 +1,4 @@
-const express =require('express');
+const express = require('express');
 
 const topicsRouter = require('./topics');
 const articlesRouter = require('./articles');

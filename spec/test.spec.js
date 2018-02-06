@@ -77,7 +77,7 @@ describe('API endpoints', () => {
       const articleId = docs.articles[0]._id;
       return request
         .post(`/api/articles/${articleId}/comments`)
-        .send({'body': 'Wooooop'})
+        .send({ 'body': 'Wooooop' })
         .expect(201)
         .then(() => {
           return request.get(`/api/articles/${articleId}/comments`);
@@ -94,7 +94,7 @@ describe('API endpoints', () => {
       return request
         .put(`/api/articles/${articleId}?vote=up`)
         .expect(200)
-     
+
         .then(res => {
           expect(res.body).to.be.an('object');
           expect(res.body.article.votes).to.equal(1);
@@ -109,7 +109,7 @@ describe('API endpoints', () => {
       return request
         .put(`/api/comments/${commentId}?vote=up`)
         .expect(200)
-     
+
         .then(res => {
 
           expect(res.body).to.be.an('object');
@@ -120,7 +120,7 @@ describe('API endpoints', () => {
     });
 
     it('DELETE should remove a new comment.', () => {
-      const commentId = docs.comments[0]._id;      return request
+      const commentId = docs.comments[0]._id; return request
         .delete(`/api/comments/${commentId}`)
         .expect(200)
         .then(res => {
@@ -133,7 +133,7 @@ describe('API endpoints', () => {
 
     it('GET should return users by ID', () => {
       const userId = docs.user.id;
- 
+
       return request
         .get(`/api/users/${userId}`)
         .expect(200)
