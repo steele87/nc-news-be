@@ -25,7 +25,7 @@ function getCommentsForArticle(req, res, next) {
 }
 
 function addCommetsToArticle(req, res, next) {
-  const addedComment = { body: req.body.body, belongs_to: req.params.article_id };
+  const addedComment = { body: req.body.comment, belongs_to: req.params.article_id };
   new comments(addedComment).save()
     .then(comment => {
       res.status(201).json({ comment });
