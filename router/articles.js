@@ -9,7 +9,8 @@ router.route('/:article_id/comments')
   .get(getCommentsForArticle)
   .post(addCommetsToArticle);
 router.route('/:article_id?')
-  .get(getArticle)
+.get(getArticle);
+router.route('/:article_id?')
   .put(changeNumOfVotes);
   
 module.exports = router;
