@@ -37,9 +37,9 @@ function changeNumOfVotes(req, res, next) {
     .then(article => {
       if (req.query.vote === 'up') article.votes++;
       else if (req.query.vote === 'down') article.votes--;
-      res.status(200).json({ article });
-    });
-
+      return article.save();
+    })
+    .then(article => res.status(200).send(article))
 }
 
 module.exports = {

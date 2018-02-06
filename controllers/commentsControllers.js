@@ -6,8 +6,9 @@ function changeNumOfVotes(req, res, next) {
     .then(comment => {
       if (req.query.vote === 'up') comment.votes++;
       else if (req.query.vote === 'down') comment.votes--;
-      res.json({ comment });
-    });
+      return comment.save();
+    })
+    .then(comment => res.status(200).send(comment))
 }
 
 function deleteComment(req, res, next) {
