@@ -3,7 +3,7 @@ const comments = require('../models/comments');
 
 function changeNumOfVotes(req, res, next) {
   return comments.findByIdAndUpdate(req.params.comment_id).lean()
-    .then(comment => {
+    .then((comment) => {
       if (req.query.vote === 'up') comment.votes++;
       else if (req.query.vote === 'down') comment.votes--;
       return comment.save();
