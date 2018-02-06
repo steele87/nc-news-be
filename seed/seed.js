@@ -1,17 +1,17 @@
-var models = require('../models/models');
-var userData = require('./data/user_data.js');
-var articleData = require('./data/articles');
-var Chance = require('chance');
-var chance = new Chance();
-var _ = require('underscore');
-var async = require('async');
-var mongoose = require('mongoose');
-var log4js = require('log4js');
-var logger = log4js.getLogger();
-var moment = require('moment');
-var DBs = require('../config').DB;
+let models = require('../models/models');
+let userData = require('./data/user_data.js');
+let articleData = require('./data/articles');
+let Chance = require('chance');
+let chance = new Chance();
+let _ = require('underscore');
+let async = require('async');
+let mongoose = require('mongoose');
+let log4js = require('log4js');
+let logger = log4js.getLogger();
+let moment = require('moment');
+let DBs = require('../config').DB;
 
-mongoose.connect(DBs.dev, function (err) {
+mongoose.connect('mongodb://jimmy:blake20@ds263137.mlab.com:63137/nc-news', function (err) {
   if (!err) {
     logger.info(`connected to database ${DBs.dev}`);
     mongoose.connection.db.dropDatabase();
