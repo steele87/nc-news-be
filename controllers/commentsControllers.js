@@ -8,7 +8,7 @@ function changeNumOfVotes(req, res, next) {
       else if (req.query.vote === 'down') comment.votes--;
       return comment.save();
     })
-    .then(comment => res.status(200).send(comment))
+    .then(comment => res.status(200).send({comment}))
 }
 
 function deleteComment(req, res, next) {
