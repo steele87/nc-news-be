@@ -11,7 +11,10 @@ function getAllArticles(req, res, next) {
 }
 
 function getArticle(req, res, next) {
-  return articles.findById(req.params.article_id).lean()
+  if(req.params.article_id.length !== 24) {
+    return res.status(404).json({'message': `${req.params.article_id} is an invalid number`})
+  }
+  else return articles.findById(req.params.article_id).lean()
     .then(article => {
       return res.json({ article })
     })
