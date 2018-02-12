@@ -21,6 +21,16 @@ describe('API endpoints', () => {
   });
 
   describe('API endpoint /api/topics', () => {
+    it('GET /todfscs returns status 404', () => {
+      return request
+        .get('/api/todfscs')
+        .expect(404)
+        .then((res) => {
+          expect(res.body).to.be.an('object');
+          expect(Object.values(res.body).length).to.be.eql(0);
+          return;
+        });
+    });
     it('GET /topics returns an object of all topics', () => {
       return request
         .get('/api/topics')
@@ -62,7 +72,6 @@ describe('API endpoints', () => {
 
     it('GET should return all of the comments from the article with the ID provided', () => {
       const articleId = docs.articles[0]._id;
-
       return request
         .get(`/api/articles/${articleId}/comments`)
         .expect(200)
@@ -77,7 +86,7 @@ describe('API endpoints', () => {
       const articleId = docs.articles[0]._id;
       return request
         .post(`/api/articles/${articleId}/comments`)
-        .send({ 'body': 'Wooooop' })
+        .send({ 'body': 'adding a comment' })
         .expect(201)
         .then(() => {
           return request.get(`/api/articles/${articleId}/comments`);
@@ -89,12 +98,12 @@ describe('API endpoints', () => {
 
         });
     });
+
     it('PUT should either increase or decrease the number of votes an article has.', () => {
       const articleId = docs.articles[0]._id;
       return request
         .put(`/api/articles/${articleId}?vote=up`)
         .expect(200)
-
         .then(res => {
           expect(res.body).to.be.an('object');
           expect(res.body.article.votes).to.equal(1);
@@ -105,13 +114,10 @@ describe('API endpoints', () => {
 
     it('PUT should either increase or decrease the number of votes a comment has.', () => {
       const commentId = docs.comments[0]._id;
-
       return request
         .put(`/api/comments/${commentId}?vote=up`)
         .expect(200)
-
         .then(res => {
-
           expect(res.body).to.be.an('object');
           expect(res.body.comment.votes).to.equal(1);
           return;
@@ -133,12 +139,10 @@ describe('API endpoints', () => {
 
     it('GET should return users by ID', () => {
       const userId = docs.user.id;
-
       return request
         .get(`/api/users/${userId}`)
         .expect(200)
         .then(res => {
-
           expect(res.body).to.be.an('object');
           expect(res.body.user.length).to.equal(0);
           expect(Object.keys(res.body).length).to.be.eql(1);
@@ -146,6 +150,18 @@ describe('API endpoints', () => {
         });
     });
 
+    it('GET should return users ', () => {
+      const userId = docs.user.id;
+      return request
+        .get(`/api/users`)
+        .expect(200)
+        .then(res => {
+          expect(res.body).to.be.an('object');
+          expect(res.body.user.length).to.equal(1);
+          expect(Object.keys(res.body).length).to.be.eql(1);
+          return;
+        });
+    });
   });
 });
 
