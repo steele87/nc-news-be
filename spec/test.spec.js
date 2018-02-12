@@ -86,7 +86,7 @@ describe('API endpoints', () => {
       const articleId = docs.articles[0]._id;
       return request
         .post(`/api/articles/${articleId}/comments`)
-        .send({ 'body': 'adding a comment' })
+        .send({ 'comment': 'adding a comment' })
         .expect(201)
         .then(() => {
           return request.get(`/api/articles/${articleId}/comments`);
