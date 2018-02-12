@@ -57,7 +57,17 @@ describe('API endpoints', () => {
         });
     });
 
-    it('GET /topics/:topic_id/articles returns an object of all articles related to that topic', () => {
+    it('GET /topics/:topic_id/articles returns error message if invalid', () => {
+      return request
+        .get('/api/topics/banana/articles')
+        .expect(404)
+        .then((res) => {
+          expect(res.body.message).to.equal('no articles found');
+          return;
+        });
+    });
+
+    it('GET /articles returns an object of all articles', () => {
       return request
         .get('/api/articles')
         .expect(200)
@@ -70,7 +80,7 @@ describe('API endpoints', () => {
         });
     });
 
-    it('GET should return all of the comments from the article with the ID provided', () => {
+    it('GET  returns all of the comments from the article with the ID provided', () => {
       const articleId = docs.articles[0]._id;
       return request
         .get(`/api/articles/${articleId}/comments`)
@@ -82,7 +92,18 @@ describe('API endpoints', () => {
         });
     });
 
-    it('POST should create a new comment.', () => {
+    it('GET returns error message if comment id is invalid', () => {
+      const articleId = 34567;
+      return request
+        .get(`/api/articles/${articleId}/comments`)
+        .expect(404)
+        .then(res => {
+          expect(res.body.message).to.equal(`${articleId} is an invalid article id`);
+          return;
+        });
+    });
+
+    it('POST creates a new comment.', () => {
       const articleId = docs.articles[0]._id;
       return request
         .post(`/api/articles/${articleId}/comments`)
@@ -95,7 +116,19 @@ describe('API endpoints', () => {
           expect(res.body).to.be.an('object');
           expect(res.body.comments.length).to.equal(3);
           return;
+        });
+    });
 
+    it('POST returns error message if request can not be completed', () => {
+      const articleId = 1234567890;
+      return request
+        .post(`/api/articles/${articleId}/comments`)
+        .send({ 'comment': 'adding a comment' })
+        .expect(500)
+        
+        .then(res => {
+          expect(res.body.message).to.equal('Please ensure correct article id is used and comment is included in body');
+          return;
         });
     });
 
@@ -112,6 +145,17 @@ describe('API endpoints', () => {
         });
     });
 
+    it('PUT returns error if article vote is incorrect', () => {
+      const articleId = docs.articles[0]._id;
+      return request
+        .put(`/api/articles/${articleId}?vote=updfg`)
+        .expect(500)
+        .then(res => {
+          expect(res.body.message).to.equal('please use up or down as query parameter');
+          return;
+        });
+    });
+
     it('PUT should either increase or decrease the number of votes a comment has.', () => {
       const commentId = docs.comments[0]._id;
       return request
@@ -120,6 +164,18 @@ describe('API endpoints', () => {
         .then(res => {
           expect(res.body).to.be.an('object');
           expect(res.body.comment.votes).to.equal(1);
+          return;
+
+        });
+    });
+
+    it('PUT returns error if comment vote is invalid', () => {
+      const commentId = 123456;
+      return request
+        .put(`/api/comments/${commentId}?vote=up`)
+        .expect(500)
+        .then(res => {
+          expect(res.body.message).to.equal(`${commentId} is an invalid comment id`);
           return;
 
         });
@@ -137,6 +193,16 @@ describe('API endpoints', () => {
         });
     });
 
+    it('DELETE returns error message if invalid comment id', () => {
+      const commentId = 234567; return request
+        .delete(`/api/comments/${commentId}`)
+        .expect(500)
+        .then(res => {
+          expect(res.body.message).to.equal(`${commentId} is an invalid comment id`);
+          return;
+        });
+    });
+
     it('GET should return users by ID', () => {
       const userId = docs.user.id;
       return request
@@ -150,7 +216,7 @@ describe('API endpoints', () => {
         });
     });
 
-    it('GET should return users ', () => {
+    it('GET returns all users ', () => {
       const userId = docs.user.id;
       return request
         .get(`/api/users`)

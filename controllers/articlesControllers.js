@@ -45,7 +45,7 @@ function changeNumOfVotes(req, res, next) {
   if (req.params.article_id.length !== 24) {
     return res.status(500).json({ 'message': `${req.params.article_id} is an invalid article id` })
   }
-  if (!req.query.vote === 'up' && !req.query.vote === 'down') {
+  if (req.query.vote !== 'up' && req.query.vote !== 'down') {
     return res.status(500).json({ 'message': 'please use up or down as query parameter' })
   }
   else return articles.findByIdAndUpdate(req.params.article_id)
