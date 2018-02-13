@@ -5,7 +5,7 @@ function getUser(req, res, next) {
     .then(user => {
       res.json({ user });
     })
-    .catch(err => res.status(500).send(err))
+    .catch(err => res.status(500).send(err));
 }
 
 function getAllUsers(req, res, next) {
@@ -15,7 +15,7 @@ function getAllUsers(req, res, next) {
         user
       });
     })
-    .catch(err => res.status(500).send(err))
+    .catch(err => res.status(500).send(err));
 }
 
 module.exports = {

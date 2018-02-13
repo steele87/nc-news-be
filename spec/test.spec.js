@@ -27,7 +27,7 @@ describe('API endpoints', () => {
         .expect(404)
         .then((res) => {
           expect(res.body).to.be.an('object');
-          expect(Object.values(res.body).length).to.be.eql(0);
+          expect(Object.values(res.body).length).to.equal(0);
           return;
         });
     });
@@ -37,10 +37,9 @@ describe('API endpoints', () => {
         .expect(200)
         .then((res) => {
           expect(res.body).to.be.an('object');
-          expect(Object.values(res.body).length).to.be.eql(1);
-          expect(Object.keys(res.body).length).to.be.eql(1);
-          expect(res.body.topic.length).to.be.eql(3);
-          return;
+          expect(Object.values(res.body).length).to.equal(1);
+          expect(Object.keys(res.body).length).to.equal(1);
+          expect(res.body.topic.length).to.equal(3);
         });
     });
 
@@ -50,10 +49,9 @@ describe('API endpoints', () => {
         .expect(200)
         .then((res) => {
           expect(res.body).to.be.an('object');
-          expect(Object.values(res.body).length).to.be.eql(1);
-          expect(Object.keys(res.body).length).to.be.eql(1);
-          expect(res.body.articles.length).to.be.eql(1);
-          return;
+          expect(Object.values(res.body).length).to.equal(1);
+          expect(Object.keys(res.body).length).to.equal(1);
+          expect(res.body.articles.length).to.equal(1);
         });
     });
 
@@ -63,7 +61,6 @@ describe('API endpoints', () => {
         .expect(404)
         .then((res) => {
           expect(res.body.message).to.equal('no articles found');
-          return;
         });
     });
 
@@ -73,10 +70,9 @@ describe('API endpoints', () => {
         .expect(200)
         .then((res) => {
           expect(res.body).to.be.an('object');
-          expect(Object.values(res.body).length).to.be.eql(1);
-          expect(Object.keys(res.body).length).to.be.eql(1);
-          expect(res.body.topic.length).to.be.eql(2);
-          return;
+          expect(Object.values(res.body).length).to.equal(1);
+          expect(Object.keys(res.body).length).to.equal(1);
+          expect(res.body.topics.length).to.equal(2);
         });
     });
 
@@ -88,7 +84,6 @@ describe('API endpoints', () => {
         .then(res => {
           expect(res.body).to.be.an('object');
           expect(res.body.comments.length).to.equal(2);
-          return;
         });
     });
 
@@ -99,7 +94,6 @@ describe('API endpoints', () => {
         .expect(400)
         .then(res => {
           expect(res.body.message).to.equal(`${articleId} is an invalid article id`);
-          return;
         });
     });
 
@@ -111,7 +105,7 @@ describe('API endpoints', () => {
         .expect(201)
         .then((res) => {
           expect(res.body.comment.body).to.equal('adding a comment');
-        })
+        });
     });
 
     it('POST returns error message if request can not be completed', () => {
@@ -120,10 +114,9 @@ describe('API endpoints', () => {
         .post(`/api/articles/${articleId}/comments`)
         .send({ 'comment': 'adding a comment' })
         .expect(400)
-        
+
         .then(res => {
           expect(res.body.message).to.equal('Please ensure correct article id is used and comment is included in body');
-          return;
         });
     });
 
@@ -135,8 +128,6 @@ describe('API endpoints', () => {
         .then(res => {
           expect(res.body).to.be.an('object');
           expect(res.body.article.votes).to.equal(1);
-          return;
-
         });
     });
 
@@ -147,7 +138,6 @@ describe('API endpoints', () => {
         .expect(400)
         .then(res => {
           expect(res.body.message).to.equal('please use up or down as query parameter');
-          return;
         });
     });
 
@@ -159,7 +149,6 @@ describe('API endpoints', () => {
         .then(res => {
           expect(res.body).to.be.an('object');
           expect(res.body.comment.votes).to.equal(1);
-          return;
 
         });
     });
@@ -171,8 +160,6 @@ describe('API endpoints', () => {
         .expect(400)
         .then(res => {
           expect(res.body.message).to.equal(`${commentId} is an invalid comment id`);
-          return;
-
         });
     });
 
@@ -183,8 +170,6 @@ describe('API endpoints', () => {
         .then(res => {
           expect(res.body).to.be.an('object');
           expect(res.body).to.eql({});
-          return;
-
         });
     });
 
@@ -194,7 +179,6 @@ describe('API endpoints', () => {
         .expect(400)
         .then(res => {
           expect(res.body.message).to.equal(`${commentId} is an invalid comment id`);
-          return;
         });
     });
 
@@ -207,20 +191,17 @@ describe('API endpoints', () => {
           expect(res.body).to.be.an('object');
           expect(res.body.user.length).to.equal(0);
           expect(Object.keys(res.body).length).to.be.eql(1);
-          return;
         });
     });
 
     it('GET returns all users ', () => {
-      const userId = docs.user.id;
       return request
-        .get(`/api/users`)
+        .get('/api/users')
         .expect(200)
         .then(res => {
           expect(res.body).to.be.an('object');
           expect(res.body.user.length).to.equal(1);
           expect(Object.keys(res.body).length).to.be.eql(1);
-          return;
         });
     });
   });

@@ -3,9 +3,9 @@ const comments = require('../models/comments');
 
 function getAllArticles(req, res, next) {
   articles.find().lean()
-    .then(topic => {
+    .then(topics => {
       return res.json({
-        topic
+        topics
       });
     });
 }
@@ -16,7 +16,7 @@ function getArticle(req, res, next) {
   }
   else return articles.findById(req.params.article_id).lean()
     .then(article => {
-      return res.json({ article })
+      return res.json({ article });
     })
     .catch(err => res.status(500).send(err));
 }
@@ -34,7 +34,7 @@ function getCommentsForArticle(req, res, next) {
 
 function addCommetsToArticle(req, res, next) {
   if (req.params.article_id.length !== 24 || !req.body.comment) {
-    return res.status(400).json({ 'message': `Please ensure correct article id is used and comment is included in body` })
+    return res.status(400).json({ 'message': 'Please ensure correct article id is used and comment is included in body' });
   }
   const addedComment = { body: req.body.comment, belongs_to: req.params.article_id };
   new comments(addedComment).save()

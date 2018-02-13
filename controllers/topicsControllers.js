@@ -14,17 +14,17 @@ function getAllTopics(req, res, next) {
 function getArticlesByTopic(req, res, next) {
   topics.find({ title: req.params.topic_title })
     .then(topic => {
-      if(!topic.length){
-        return res.status(404).json({'message': 'no articles found'})
+      if (!topic.length) {
+        return res.status(404).json({ 'message': 'no articles found' });
       } else {
-      let title = topic[0].title.toLowerCase();
-      return articles.find({ belongs_to: title });
+        let title = topic[0].title.toLowerCase();
+        return articles.find({ belongs_to: title });
       }
     })
     .then(articles => {
       res.json({ articles });
     })
-    .catch(err => res.status(500).send(err))
+    .catch(err => res.status(500).send(err));
 }
 
 module.exports = {
