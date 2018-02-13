@@ -15,7 +15,7 @@ function changeNumOfVotes(req, res, next) {
       return comment.save();
     })
     .then(comment => res.status(200).send({ comment }))
-    .catch(err => res.status(500).send(err))
+    .catch(err => res.status(500).send(err));
 }
 
 function deleteComment(req, res, next) {
@@ -25,9 +25,9 @@ function deleteComment(req, res, next) {
   else return comments.findByIdAndRemove(req.params.comment_id).lean()
     .then(comment => {
       const commentId = req.params.comment_id;
-      res.send(` comment:${commentId} has been deleted`);
+      res.send(`comment:${commentId} has been deleted`);
     })
-    .catch(err => res.status(500).send(err))
+    .catch(err => res.status(500).send(err));
 }
 
 module.exports = { changeNumOfVotes, deleteComment };

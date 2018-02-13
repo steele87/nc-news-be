@@ -169,7 +169,7 @@ describe('API endpoints', () => {
         .expect(200)
         .then(res => {
           expect(res.body).to.be.an('object');
-          expect(res.body).to.eql({});
+          expect(res.text).to.equal(`comment:${commentId} has been deleted`);
         });
     });
 
