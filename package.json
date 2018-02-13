@@ -6,7 +6,8 @@
   "scripts": {
     "test": "mocha spec/test.spec.js",
     "start": "node listen.js",
-    "dev": "nodemon listen.js"
+    "dev": "nodemon listen.js",
+    "lint": "eslint ./"
   },
   "author": "",
   "license": "ISC",

@@ -96,7 +96,7 @@ describe('API endpoints', () => {
       const articleId = 34567;
       return request
         .get(`/api/articles/${articleId}/comments`)
-        .expect(404)
+        .expect(400)
         .then(res => {
           expect(res.body.message).to.equal(`${articleId} is an invalid article id`);
           return;
@@ -109,14 +109,9 @@ describe('API endpoints', () => {
         .post(`/api/articles/${articleId}/comments`)
         .send({ 'comment': 'adding a comment' })
         .expect(201)
-        .then(() => {
-          return request.get(`/api/articles/${articleId}/comments`);
+        .then((res) => {
+          expect(res.body.comment.body).to.equal('adding a comment');
         })
-        .then(res => {
-          expect(res.body).to.be.an('object');
-          expect(res.body.comments.length).to.equal(3);
-          return;
-        });
     });
 
     it('POST returns error message if request can not be completed', () => {
@@ -124,7 +119,7 @@ describe('API endpoints', () => {
       return request
         .post(`/api/articles/${articleId}/comments`)
         .send({ 'comment': 'adding a comment' })
-        .expect(500)
+        .expect(400)
         
         .then(res => {
           expect(res.body.message).to.equal('Please ensure correct article id is used and comment is included in body');
@@ -149,7 +144,7 @@ describe('API endpoints', () => {
       const articleId = docs.articles[0]._id;
       return request
         .put(`/api/articles/${articleId}?vote=updfg`)
-        .expect(500)
+        .expect(400)
         .then(res => {
           expect(res.body.message).to.equal('please use up or down as query parameter');
           return;
@@ -173,7 +168,7 @@ describe('API endpoints', () => {
       const commentId = 123456;
       return request
         .put(`/api/comments/${commentId}?vote=up`)
-        .expect(500)
+        .expect(400)
         .then(res => {
           expect(res.body.message).to.equal(`${commentId} is an invalid comment id`);
           return;
@@ -196,7 +191,7 @@ describe('API endpoints', () => {
     it('DELETE returns error message if invalid comment id', () => {
       const commentId = 234567; return request
         .delete(`/api/comments/${commentId}`)
-        .expect(500)
+        .expect(400)
         .then(res => {
           expect(res.body.message).to.equal(`${commentId} is an invalid comment id`);
           return;

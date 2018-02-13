@@ -24,7 +24,7 @@ function getArticlesByTopic(req, res, next) {
     .then(articles => {
       res.json({ articles });
     })
-    .catch(console.error);
+    .catch(err => res.status(500).send(err))
 }
 
 module.exports = {
