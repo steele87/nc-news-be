@@ -164,12 +164,13 @@ describe('API endpoints', () => {
     });
 
     it('DELETE should remove a new comment.', () => {
-      const commentId = docs.comments[0]._id; return request
+      const commentId = docs.comments[0]._id;
+      return request
         .delete(`/api/comments/${commentId}`)
         .expect(200)
         .then(res => {
           expect(res.body).to.be.an('object');
-          expect(res.text).to.equal(`comment:${commentId} has been deleted`);
+          expect(res.body.message).to.equal(`comment ${commentId} has been deleted`);
         });
     });
 

@@ -20,12 +20,19 @@ function changeNumOfVotes(req, res, next) {
 
 function deleteComment(req, res, next) {
   if (req.params.comment_id.length !== 24) {
-    return res.status(400).json({ 'message': `${req.params.comment_id} is an invalid comment id` })
+    return res.status(400).json({ 'message': `${req.params.comment_id} is an invalid comment id` });
   }
-  else return comments.findByIdAndRemove(req.params.comment_id).lean()
+  else return comments.findById(req.params.comment_id).lean()
     .then(comment => {
-      const commentId = req.params.comment_id;
-      res.send(`comment:${commentId} has been deleted`);
+      if (comment.created_by === 'northcoder') {
+        const commentId = req.params.comment_id;
+        return comments.findByIdAndRemove(commentId).lean()
+      }
+      else {
+        return res.status(400).json({ 'message': `comment ${req.params.comment_id} does not belong to "northcoder"` });}
+    })
+    .then (() => {
+      res.status(200).json({'message':`comment ${req.params.comment_id} has been deleted`});
     })
     .catch(err => res.status(500).send(err));
 }
