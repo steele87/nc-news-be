@@ -12,7 +12,7 @@ function getAllArticles(req, res, next) {
 
 function getArticle(req, res, next) {
   if (req.params.article_id.length !== 24) {
-    return res.status(400).json({ 'message': `${req.params.article_id} is an invalid article id` })
+    return res.status(400).json({ 'message': `${req.params.article_id} is an invalid article id` });
   }
   else return articles.findById(req.params.article_id).lean()
     .then(article => {
@@ -23,7 +23,7 @@ function getArticle(req, res, next) {
 
 function getCommentsForArticle(req, res, next) {
   if (req.params.article_id.length !== 24) {
-    return res.status(400).json({ 'message': `${req.params.article_id} is an invalid article id` })
+    return res.status(400).json({ 'message': `${req.params.article_id} is an invalid article id` });
   }
   else return comments.find({ belongs_to: req.params.article_id })
     .then(comments => {
@@ -46,10 +46,10 @@ function addCommetsToArticle(req, res, next) {
 
 function changeNumOfVotes(req, res, next) {
   if (req.params.article_id.length !== 24) {
-    return res.status(400).json({ 'message': `${req.params.article_id} is an invalid article id` })
+    return res.status(400).json({ 'message': `${req.params.article_id} is an invalid article id` });
   }
   if (req.query.vote !== 'up' && req.query.vote !== 'down') {
-    return res.status(400).json({ 'message': 'please use up or down as query parameter' })
+    return res.status(400).json({ 'message': 'please use up or down as query parameter' });
   }
   else return articles.findByIdAndUpdate(req.params.article_id)
     .then((article) => {

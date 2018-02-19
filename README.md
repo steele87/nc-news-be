@@ -50,7 +50,7 @@ Finally to run the server enter the following command in your terminal window:
 
 npm start
 
-This will run the server on port 3000. All endpoints can be found locally on http://localhost:3000 .
+This will run the server on port 3000. All endpoints can be found locally on http://localhost:3000/api
 
 Testing
 To test the API navigate to the project directory and enter the following command
