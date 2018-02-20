@@ -1,12 +1,12 @@
 const comments = require('../models/comments');
 
 
-function changeNumOfVotes(req, res, next) {
+function changeNumOfVotes(req, res) {
   if (req.params.comment_id.length !== 24) {
-    return res.status(400).json({ 'message': `${req.params.comment_id} is an invalid comment id` })
+    return res.status(400).json({ 'message': `${req.params.comment_id} is an invalid comment id` });
   }
   else if (req.query.vote !== 'up' && req.query.vote !== 'down') {
-    return res.status(400).json({ 'message': 'please use up or down as query parameter' })
+    return res.status(400).json({ 'message': 'please use up or down as query parameter' });
   }
   else return comments.findByIdAndUpdate(req.params.comment_id)
     .then((comment) => {
@@ -18,7 +18,7 @@ function changeNumOfVotes(req, res, next) {
     .catch(err => res.status(500).send(err));
 }
 
-function deleteComment(req, res, next) {
+function deleteComment(req, res) {
   if (req.params.comment_id.length !== 24) {
     return res.status(400).json({ 'message': `${req.params.comment_id} is an invalid comment id` });
   }
@@ -26,13 +26,14 @@ function deleteComment(req, res, next) {
     .then(comment => {
       if (comment.created_by === 'northcoder') {
         const commentId = req.params.comment_id;
-        return comments.findByIdAndRemove(commentId).lean()
+        return comments.findByIdAndRemove(commentId).lean();
       }
       else {
-        return res.status(400).json({ 'message': `comment ${req.params.comment_id} does not belong to "northcoder"` });}
+        return res.status(400).json({ 'message': `comment ${req.params.comment_id} does not belong to "northcoder"` });
+      }
     })
-    .then (() => {
-      res.status(200).json({'message':`comment ${req.params.comment_id} has been deleted`});
+    .then(() => {
+      res.status(200).json({ 'message': `comment ${req.params.comment_id} has been deleted` });
     })
     .catch(err => res.status(500).send(err));
 }

@@ -1,7 +1,7 @@
 const topics = require('../models/topics');
 const articles = require('../models/articles');
 
-function getAllTopics(req, res, next) {
+function getAllTopics(req, res) {
   topics.find().lean()
     .then(topics => {
       return res.json({
@@ -11,7 +11,7 @@ function getAllTopics(req, res, next) {
 }
 
 
-function getArticlesByTopic(req, res, next) {
+function getArticlesByTopic(req, res) {
   topics.find({ title: req.params.topic_title })
     .then(topic => {
       if (!topic.length) {

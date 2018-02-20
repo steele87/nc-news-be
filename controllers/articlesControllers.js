@@ -1,7 +1,7 @@
 const articles = require('../models/articles');
 const comments = require('../models/comments');
 
-function getAllArticles(req, res, next) {
+function getAllArticles(req, res) {
   articles.find().lean()
     .then(topics => {
       return res.json({
@@ -10,7 +10,7 @@ function getAllArticles(req, res, next) {
     });
 }
 
-function getArticle(req, res, next) {
+function getArticle(req, res) {
   if (req.params.article_id.length !== 24) {
     return res.status(400).json({ 'message': `${req.params.article_id} is an invalid article id` });
   }
@@ -21,7 +21,7 @@ function getArticle(req, res, next) {
     .catch(err => res.status(500).send(err));
 }
 
-function getCommentsForArticle(req, res, next) {
+function getCommentsForArticle(req, res) {
   if (req.params.article_id.length !== 24) {
     return res.status(400).json({ 'message': `${req.params.article_id} is an invalid article id` });
   }
@@ -32,7 +32,7 @@ function getCommentsForArticle(req, res, next) {
     .catch(err => res.status(500).send(err));
 }
 
-function addCommetsToArticle(req, res, next) {
+function addCommetsToArticle(req, res) {
   if (req.params.article_id.length !== 24 || !req.body.comment) {
     return res.status(400).json({ 'message': 'Please ensure correct article id is used and comment is included in body' });
   }
@@ -44,7 +44,7 @@ function addCommetsToArticle(req, res, next) {
     .catch(err => res.status(500).send(err));
 }
 
-function changeNumOfVotes(req, res, next) {
+function changeNumOfVotes(req, res) {
   if (req.params.article_id.length !== 24) {
     return res.status(400).json({ 'message': `${req.params.article_id} is an invalid article id` });
   }

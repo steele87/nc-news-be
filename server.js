@@ -21,11 +21,11 @@ app.use('/api', router);
 router.route('/')
   .get((req, res) => res.status(200).send({status: 'working'}));
   
-// app.use('/*', (req, res, next) => {
-//   const err = new Error('Invalid path');
-//   err.statusCode = 404;
-//   next(err);
-// });
+app.use('/*', (req, res, next) => {
+  const err = new Error('Invalid path');
+  err.statusCode = 404;
+  next(err);
+});
 
 app.use((err, req, res, next) => {
   res.status(err.statusCode).json({error: err.message, status: err.statusCode});
