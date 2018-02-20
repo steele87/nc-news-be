@@ -20,21 +20,20 @@ describe('API endpoints', () => {
     mongoose.disconnect();
   });
 
-  describe('API endpoint /api/topics', () => {
+  describe('API endpoint /topics', () => {
     it('GET /todfscs returns status 404', () => {
       return request
-        .get('/api/todfscs')
+        .get('/todfscs')
         .expect(404)
         .then((res) => {
           expect(res.body).to.be.an('object');
           expect(res.body.error).to.equal('Invalid path');
-          return;
         });
     });
     it('GET /topics returns an object of all topics', () => {
       return request
-        .get('/api/topics')
-        .expect(200)
+        .get('/topics')
+        .expect(200)    
         .then((res) => {
           expect(res.body).to.be.an('object');
           expect(Object.values(res.body).length).to.equal(1);
@@ -45,7 +44,7 @@ describe('API endpoints', () => {
 
     it('GET /topics/:topic_id/articles returns an object of all articles related to that topic', () => {
       return request
-        .get('/api/topics/Football/articles')
+        .get('/topics/Football/articles')
         .expect(200)
         .then((res) => {
           expect(res.body).to.be.an('object');
@@ -57,7 +56,7 @@ describe('API endpoints', () => {
 
     it('GET /topics/:topic_id/articles returns error message if invalid', () => {
       return request
-        .get('/api/topics/banana/articles')
+        .get('/topics/banana/articles')
         .expect(404)
         .then((res) => {
           expect(res.body.message).to.equal('no articles found');
@@ -66,7 +65,7 @@ describe('API endpoints', () => {
 
     it('GET /articles returns an object of all articles', () => {
       return request
-        .get('/api/articles')
+        .get('/articles')
         .expect(200)
         .then((res) => {
           expect(res.body).to.be.an('object');
@@ -79,7 +78,7 @@ describe('API endpoints', () => {
     it('GET  returns all of the comments from the article with the ID provided', () => {
       const articleId = docs.articles[0]._id;
       return request
-        .get(`/api/articles/${articleId}/comments`)
+        .get(`/articles/${articleId}/comments`)
         .expect(200)
         .then(res => {
           expect(res.body).to.be.an('object');
@@ -90,7 +89,7 @@ describe('API endpoints', () => {
     it('GET returns error message if comment id is invalid', () => {
       const articleId = 34567;
       return request
-        .get(`/api/articles/${articleId}/comments`)
+        .get(`/articles/${articleId}/comments`)
         .expect(400)
         .then(res => {
           expect(res.body.message).to.equal(`${articleId} is an invalid article id`);
@@ -100,7 +99,7 @@ describe('API endpoints', () => {
     it('POST creates a new comment.', () => {
       const articleId = docs.articles[0]._id;
       return request
-        .post(`/api/articles/${articleId}/comments`)
+        .post(`/articles/${articleId}/comments`)
         .send({ 'comment': 'adding a comment' })
         .expect(201)
         .then((res) => {
@@ -111,7 +110,7 @@ describe('API endpoints', () => {
     it('POST returns error message if request can not be completed', () => {
       const articleId = 1234567890;
       return request
-        .post(`/api/articles/${articleId}/comments`)
+        .post(`/articles/${articleId}/comments`)
         .send({ 'comment': 'adding a comment' })
         .expect(400)
 
@@ -123,7 +122,7 @@ describe('API endpoints', () => {
     it('PUT should either increase or decrease the number of votes an article has.', () => {
       const articleId = docs.articles[0]._id;
       return request
-        .put(`/api/articles/${articleId}?vote=up`)
+        .put(`/articles/${articleId}?vote=up`)
         .expect(200)
         .then(res => {
           expect(res.body).to.be.an('object');
@@ -134,7 +133,7 @@ describe('API endpoints', () => {
     it('PUT returns error if article vote is incorrect', () => {
       const articleId = docs.articles[0]._id;
       return request
-        .put(`/api/articles/${articleId}?vote=updfg`)
+        .put(`/articles/${articleId}?vote=updfg`)
         .expect(400)
         .then(res => {
           expect(res.body.message).to.equal('please use up or down as query parameter');
@@ -144,7 +143,7 @@ describe('API endpoints', () => {
     it('PUT should either increase or decrease the number of votes a comment has.', () => {
       const commentId = docs.comments[0]._id;
       return request
-        .put(`/api/comments/${commentId}?vote=up`)
+        .put(`/comments/${commentId}?vote=up`)
         .expect(200)
         .then(res => {
           expect(res.body).to.be.an('object');
@@ -156,7 +155,7 @@ describe('API endpoints', () => {
     it('PUT returns error if comment vote is invalid', () => {
       const commentId = 123456;
       return request
-        .put(`/api/comments/${commentId}?vote=up`)
+        .put(`/comments/${commentId}?vote=up`)
         .expect(400)
         .then(res => {
           expect(res.body.message).to.equal(`${commentId} is an invalid comment id`);
@@ -166,7 +165,7 @@ describe('API endpoints', () => {
     it('DELETE should remove a new comment.', () => {
       const commentId = docs.comments[0]._id;
       return request
-        .delete(`/api/comments/${commentId}`)
+        .delete(`/comments/${commentId}`)
         .expect(200)
         .then(res => {
           expect(res.body).to.be.an('object');
@@ -176,7 +175,7 @@ describe('API endpoints', () => {
 
     it('DELETE returns error message if invalid comment id', () => {
       const commentId = 234567; return request
-        .delete(`/api/comments/${commentId}`)
+        .delete(`/comments/${commentId}`)
         .expect(400)
         .then(res => {
           expect(res.body.message).to.equal(`${commentId} is an invalid comment id`);
@@ -186,7 +185,7 @@ describe('API endpoints', () => {
     it('GET should return users by ID', () => {
       const userId = docs.user.id;
       return request
-        .get(`/api/users/${userId}`)
+        .get(`/users/${userId}`)
         .expect(200)
         .then(res => {
           expect(res.body).to.be.an('object');
@@ -197,7 +196,7 @@ describe('API endpoints', () => {
 
     it('GET returns all users ', () => {
       return request
-        .get('/api/users')
+        .get('/users')
         .expect(200)
         .then(res => {
           expect(res.body).to.be.an('object');
