@@ -4,7 +4,7 @@
 
 A RESTful API for Northcoders News, a news aggregation site. Built using Node.js (v8.4.0), Express.js (v4.14.0), MongoDB (v2.2.31) and Mongoose(v.4.7.0).
 
-This API has been deployed to Heroku https://floating-tundra-71534.herokuapp.com/
+This API has been deployed to Heroku https://floating-tundra-71534.herokuapp.com/api
 
 ## Set Up
 To check if Node.js is installed on your machine open a terminal window and enter:
