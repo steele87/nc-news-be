@@ -27,7 +27,7 @@ describe('API endpoints', () => {
         .expect(404)
         .then((res) => {
           expect(res.body).to.be.an('object');
-          expect(Object.values(res.body).length).to.equal(0);
+          expect(res.body.error).to.equal('Invalid path');
           return;
         });
     });
@@ -39,7 +39,7 @@ describe('API endpoints', () => {
           expect(res.body).to.be.an('object');
           expect(Object.values(res.body).length).to.equal(1);
           expect(Object.keys(res.body).length).to.equal(1);
-          expect(res.body.topic.length).to.equal(3);
+          expect(res.body.topics.length).to.equal(3);
         });
     });
 

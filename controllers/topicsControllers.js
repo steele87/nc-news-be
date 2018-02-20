@@ -3,9 +3,9 @@ const articles = require('../models/articles');
 
 function getAllTopics(req, res, next) {
   topics.find().lean()
-    .then(topic => {
+    .then(topics => {
       return res.json({
-        topic
+        topics
       });
     });
 }
