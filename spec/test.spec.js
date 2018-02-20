@@ -1,3 +1,4 @@
+process.env.NODE_ENV = 'test';
 const expect = require('chai').expect;
 const seed = require('../seed/test.seed');
 const app = require('../server');
