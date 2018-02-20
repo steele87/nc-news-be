@@ -1,66 +1,67 @@
-Northcoders News API
+# Northcoders News API
 
-About
+## About
 
 A RESTful API for Northcoders News, a news aggregation site. Built using Node.js (v8.4.0), Express.js (v4.14.0), MongoDB (v2.2.31) and Mongoose(v.4.7.0).
 
 This API has been deployed to Heroku https://floating-tundra-71534.herokuapp.com/
 
-Set Up
+## Set Up
 To check if Node.js is installed on your machine open a terminal window and enter:
 
-node -v
+`node -v`
 
-If you do not already have Node.js installed please follow the instructions on this guide.
+If you do not already have Node.js installed please follow the instructions on this guide. https://nodejs.org/en/download/package-manager/
 
 To check if npm is installed on your machine enter this command in you terminal window:
 
-npm -v
+`npm -v`
 
-If you do not have npm already installed please follow this guide to set it up.
+If you do not have npm already installed please follow this guide to set it up. https://www.npmjs.com/get-npm
 
 To check if git is installed on your machine please enter the following commitng in your terminal window:
 
-git --version
+`git --version`
 
-If you do not already have git installed on your machine please follow this guide.
+If you do not already have git installed on your machine please follow this guide. https://git-scm.com/
 
-If you do not have MongoDB already installed, please follow this guide
+If you do not have MongoDB already installed, please follow this guide. https://docs.mongodb.com/manual/installation/
 
-Installation
+## Installation
 To run this project you will need to clone it onto your local machine and install all dependencies.
 
 To do so use the command line to o navigate to your preferred directory on your local machine and enter the following command on the terminal window:
 
-git clone https://github.com/steele87/BE-FT-northcoders-news
+`git clone https://github.com/steele87/BE-FT-northcoders-news`
 
 Navigate inside the folder and install all dependencies by entering the following command on your terminal window:
 
-npm install
+`npm install`
 
 Enter the following command in your terminal window to connect to the database and keep it running:
 
-mongod
+`mongod`
 
 Open another terminal window, navigate inside the project folder and enter the following command to populate the database:
 
-node seed/seed.js
+`node seed/seed.js`
 
 Finally to run the server enter the following command in your terminal window:
 
-npm start
+`npm start`
 
-This will run the server on port 3000. All endpoints can be found locally on http://localhost:3000/api
+This will run the server on port 3000. All endpoints can be found locally on http://localhost:3000
 
-Testing
+## Testing
+
 To test the API navigate to the project directory and enter the following command
 
-npm test
+`npm test`
 
 Testing was carried out using Mocha, Chai and Supertest
 
 API Routes
-GET /api/topics
+```javascript GET /api/topics ```
 Get all the topics
 
 GET /api/topics/:topic_id/articles
