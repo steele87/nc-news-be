@@ -60,8 +60,10 @@ To test the API navigate to the project directory and enter the following comman
 
 Testing was carried out using Mocha, Chai and Supertest
 
-API Routes
-```javascript GET /api/topics ```
+## API Routes
+
+> GET /api/topics
+
 Get all the topics
 
 GET /api/topics/:topic_id/articles
