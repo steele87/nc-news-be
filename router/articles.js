@@ -1,7 +1,6 @@
 const express = require('express');
 const { getAllArticles, getCommentsForArticle, addCommetsToArticle, changeNumOfVotes, getArticle } = require('../controllers/articlesControllers');
 const router = express.Router();
-const bodyParser = require('body-parser');
 
 router.route('/')
   .get(getAllArticles);

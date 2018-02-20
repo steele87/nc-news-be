@@ -1,6 +1,5 @@
 const comments = require('../models/comments');
 
-
 function changeNumOfVotes(req, res) {
   if (req.params.comment_id.length !== 24) {
     return res.status(400).json({ 'message': `${req.params.comment_id} is an invalid comment id` });

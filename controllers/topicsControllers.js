@@ -10,7 +10,6 @@ function getAllTopics(req, res) {
     });
 }
 
-
 function getArticlesByTopic(req, res) {
   topics.find({ title: req.params.topic_title })
     .then(topic => {
